@@ -1,0 +1,11 @@
+# temporary files
+*~
+
+# local settings
+.settings/
+
+# binaries
+bin/
+
+# exported files
+jars/
