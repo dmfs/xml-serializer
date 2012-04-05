@@ -2,7 +2,7 @@
 
 __A lightweight & convenient XML serializer__
 
-This is the XML serializer used by CalDAV-Sync & CardDAV-Sync for Android. It is aims to be more convenient than the stock Android XmlSerializer interface, still being somewhat lightweight and efficient.
+This is the XML serializer used by CalDAV-Sync & CardDAV-Sync for Android. It aims to be more convenient than the stock Android XmlSerializer interface, still being somewhat lightweight and efficient.
 
 This library features basic XML serialization. At present it does not support default namespaces and pretty printing. It will take care of XML entity encoding in texts and attribute values, but it won't check validity of tag and attribute names (you have to take care of this yourself). Currently only XML 1.0 and UTF-8 character set are supported.
 
