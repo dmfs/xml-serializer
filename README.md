@@ -147,7 +147,7 @@ Often it's not possible to subclass `XmlElement` (since Java does not support mu
 				return "XmlLibrary";
 			} 
 
-			public String getXmlElementName()
+			public String getXmlTagName()
 			{
 				return "Book";
 			}
@@ -167,7 +167,7 @@ Often it's not possible to subclass `XmlElement` (since Java does not support mu
 				return "XmlLibrary";
 			} 
 
-			public String getXmlElementName()
+			public String getXmlTagName()
 			{
 				return "Shelf";
 			}

@@ -40,11 +40,11 @@ public interface IXmlElementSerializable
 
 
 	/**
-	 * Get the element's name.
+	 * Get the element's tag name.
 	 * 
 	 * @return A {@link String} containing the name. Must not be {@code null}!
 	 */
-	public String getXmlElementName();
+	public String getXmlTagName();
 
 
 	/**

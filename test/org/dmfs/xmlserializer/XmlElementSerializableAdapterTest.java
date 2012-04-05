@@ -49,7 +49,7 @@ public class XmlElementSerializableAdapterTest
 			}
 
 
-			public String getXmlElementName()
+			public String getXmlTagName()
 			{
 				return "TAGNAME";
 			}
@@ -73,7 +73,7 @@ public class XmlElementSerializableAdapterTest
 		}
 
 
-		public String getXmlElementName()
+		public String getXmlTagName()
 		{
 			return "TAGNAME";
 		}
@@ -116,7 +116,7 @@ public class XmlElementSerializableAdapterTest
 		}
 
 
-		public String getXmlElementName()
+		public String getXmlTagName()
 		{
 			return "TAGNAME";
 		}

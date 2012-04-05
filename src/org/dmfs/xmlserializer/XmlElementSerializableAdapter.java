@@ -33,7 +33,7 @@ public final class XmlElementSerializableAdapter extends XmlElement
 {
 
 	/**
-	 * Constructor that gets the element's namespace and name from an {@link IXmlElementSerializable}.
+	 * Constructor that gets the element's namespace and tag name from an {@link IXmlElementSerializable}.
 	 * 
 	 * It also fetches attributes and children from the adapted instance if any.
 	 * 
@@ -45,7 +45,7 @@ public final class XmlElementSerializableAdapter extends XmlElement
 	 */
 	XmlElementSerializableAdapter(IXmlElementSerializable serializable) throws IOException, InvalidStateException, InvalidValueException
 	{
-		super(serializable.getXmlNamespace(), serializable.getXmlElementName());
+		super(serializable.getXmlNamespace(), serializable.getXmlTagName());
 
 		// get attributes and children
 		serializable.populateXmlElement(this);
