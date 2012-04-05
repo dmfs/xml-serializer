@@ -32,11 +32,11 @@ import java.util.Set;
 
 
 /**
- * A class representing an XML tag.
+ * A class representing an XML element.
  * 
  * @author Marten Gajda <marten@dmfs.org>
  */
-public class XmlTag extends XmlAbstractNode
+public class XmlElement extends XmlAbstractNode
 {
 
 	/**
@@ -45,12 +45,12 @@ public class XmlTag extends XmlAbstractNode
 	private final String mNamespaceString;
 
 	/**
-	 * An {@link XmlNamespace} or {@code null} if this node has no namespace or no {@link NamespaceRegistry} has net been set yet.
+	 * An {@link XmlNamespace} or {@code null} if this node has no namespace or no {@link NamespaceRegistry} has not been set yet.
 	 */
 	private XmlNamespace mNamespace;
 
 	/**
-	 * The name of this tag.
+	 * The tag name of this element.
 	 */
 	private final String mTagName;
 
@@ -86,33 +86,33 @@ public class XmlTag extends XmlAbstractNode
 
 
 	/**
-	 * Constructor for a new tag with namespace.
+	 * Constructor for a new element with namespace.
 	 * 
 	 * @param namespace
-	 *            A {@link String} containing the namespace of this tag.
-	 * @param tag
-	 *            A {@link String} containing the name of this tag.
+	 *            A {@link String} containing the namespace of this element.
+	 * @param tagname
+	 *            A {@link String} containing the name of this element's tag.
 	 */
-	public XmlTag(String namespace, String tag)
+	public XmlElement(String namespace, String tagname)
 	{
 		mNamespaceString = namespace;
-		if (tag == null)
+		if (tagname == null)
 		{
-			throw new NullPointerException("Tag name must not be null");
+			throw new NullPointerException("tagname must not be null");
 		}
-		mTagName = tag;
+		mTagName = tagname;
 	}
 
 
 	/**
-	 * Constructor for a new tag without namespace.
+	 * Constructor for a new element without namespace.
 	 * 
-	 * @param tag
-	 *            A {@link String} containing the name of this tag.
+	 * @param tagname
+	 *            A {@link String} containing the name of this element's tag.
 	 */
-	public XmlTag(String tag)
+	public XmlElement(String tagname)
 	{
-		this(null, tag);
+		this(null, tagname);
 	}
 
 
@@ -138,12 +138,12 @@ public class XmlTag extends XmlAbstractNode
 	 * 
 	 * @param node
 	 *            The new child node.
-	 * @return This XmlTag instance.
+	 * @return This XmlElement instance.
 	 * @throws InvalidStateException
 	 * @throws IOException
 	 * @throws InvalidValueException
 	 */
-	public final XmlTag add(XmlAbstractNode node) throws InvalidStateException, IOException, InvalidValueException
+	public final XmlElement add(XmlAbstractNode node) throws InvalidStateException, IOException, InvalidValueException
 	{
 		switch (state)
 		{
@@ -211,14 +211,14 @@ public class XmlTag extends XmlAbstractNode
 	 * 
 	 * @param attr
 	 *            The {@link XmlAttribute}.
-	 * @return This XmlTag instance.
+	 * @return This XmlElement instance.
 	 * @throws IOException
 	 * @throws InvalidStateException
 	 *             if the attribute can't be written because the start tag has already been closed (because another node has been added).
 	 * @throws InvalidValueException
 	 * 
 	 */
-	public final XmlTag add(XmlAttribute attr) throws IOException, InvalidStateException, InvalidValueException
+	public final XmlElement add(XmlAttribute attr) throws IOException, InvalidStateException, InvalidValueException
 	{
 		switch (state)
 		{
@@ -270,18 +270,18 @@ public class XmlTag extends XmlAbstractNode
 
 
 	/**
-	 * Add an IXmlTagSerializable child to this node.
+	 * Add an IXmlElementSerializable child to this node.
 	 * 
 	 * @param serializable
-	 *            An instance implementing {@link IXmlTagSerializable}.
-	 * @return This XmlTag instance.
+	 *            An instance implementing {@link IXmlElementSerializable}.
+	 * @return This XmlElement instance.
 	 * @throws InvalidStateException
 	 * @throws IOException
 	 * @throws InvalidValueException
 	 */
-	public final XmlTag add(IXmlTagSerializable serializable) throws InvalidStateException, IOException, InvalidValueException
+	public final XmlElement add(IXmlElementSerializable serializable) throws InvalidStateException, IOException, InvalidValueException
 	{
-		add(new XmlTagSerializableAdapter(serializable));
+		add(new XmlElementSerializableAdapter(serializable));
 		return this;
 	}
 
@@ -291,12 +291,12 @@ public class XmlTag extends XmlAbstractNode
 	 * 
 	 * @param serializable
 	 *            An instance implementing {@link IXmlTextSerializable}.
-	 * @return This XmlTag instance.
+	 * @return This XmlElement instance.
 	 * @throws InvalidStateException
 	 * @throws IOException
 	 * @throws InvalidValueException
 	 */
-	public final XmlTag add(IXmlTextSerializable serializable) throws InvalidStateException, IOException, InvalidValueException
+	public final XmlElement add(IXmlTextSerializable serializable) throws InvalidStateException, IOException, InvalidValueException
 	{
 		add(new XmlTextSerializableAdapter(serializable));
 		return this;
@@ -308,12 +308,12 @@ public class XmlTag extends XmlAbstractNode
 	 * 
 	 * @param serializable
 	 *            An instance implementing {@link IXmlAttributeSerializable}.
-	 * @return This XmlTag instance.
+	 * @return This XmlElement instance.
 	 * @throws InvalidStateException
 	 * @throws IOException
 	 * @throws InvalidValueException
 	 */
-	public final XmlTag add(IXmlAttributeSerializable serializable) throws InvalidStateException, IOException, InvalidValueException
+	public final XmlElement add(IXmlAttributeSerializable serializable) throws InvalidStateException, IOException, InvalidValueException
 	{
 		add(new XmlAttributeSerializableAdapter(serializable));
 		return this;
@@ -325,12 +325,12 @@ public class XmlTag extends XmlAbstractNode
 	 * 
 	 * @param text
 	 *            A {@link String} with the text of the node.
-	 * @return This XmlTag instance.
+	 * @return This XmlElement instance.
 	 * @throws InvalidStateException
 	 * @throws IOException
 	 * @throws InvalidValueException
 	 */
-	public final XmlTag addText(String text) throws InvalidStateException, IOException, InvalidValueException
+	public final XmlElement addText(String text) throws InvalidStateException, IOException, InvalidValueException
 	{
 		add(new XmlText(text));
 		return this;
@@ -344,12 +344,12 @@ public class XmlTag extends XmlAbstractNode
 	 *            A {@link String} with the name of the attribute.
 	 * @param value
 	 *            A {@link String} with the attribute's value.
-	 * @return This XmlTag instance.
+	 * @return This XmlElement instance.
 	 * @throws IOException
 	 * @throws InvalidStateException
 	 * @throws InvalidValueException
 	 */
-	public final XmlTag addAttribute(String name, String value) throws IOException, InvalidStateException, InvalidValueException
+	public final XmlElement addAttribute(String name, String value) throws IOException, InvalidStateException, InvalidValueException
 	{
 		add(new XmlAttribute(name, value));
 		return this;
@@ -357,7 +357,7 @@ public class XmlTag extends XmlAbstractNode
 
 
 	/**
-	 * Open the tag an start writing it to the {@link Writer} {@code out}.
+	 * Open the start tag and write it to the {@link Writer} {@code out}.
 	 * 
 	 * @param out
 	 *            The {@link Writer} to write to.
@@ -366,7 +366,7 @@ public class XmlTag extends XmlAbstractNode
 	{
 		if (state != STATE_NEW)
 		{
-			throw new InvalidStateException("can not open tag in state " + state);
+			throw new InvalidStateException("can not open start tag in state " + state);
 		}
 
 		mOut = out;
@@ -400,14 +400,14 @@ public class XmlTag extends XmlAbstractNode
 
 
 	/**
-	 * Close the tag.
+	 * Close the element.
 	 */
 	final void close() throws InvalidStateException, IOException, InvalidValueException
 	{
 		switch (state)
 		{
 			case STATE_NEW:
-				throw new InvalidStateException("can not close tag - not yet opened");
+				throw new InvalidStateException("can not close element - not yet opened");
 
 			case STATE_START_TAG_OPEN:
 				// the opening tag is still open, no children have been added
@@ -442,7 +442,7 @@ public class XmlTag extends XmlAbstractNode
 				break;
 
 			default:
-				throw new InvalidStateException("can not close tag - already closed");
+				throw new InvalidStateException("can not close element - already closed");
 		}
 	}
 
@@ -488,7 +488,7 @@ public class XmlTag extends XmlAbstractNode
 			{
 				writeNamespaces(mOut, namespaces);
 			}
-			// lock this level the start tag is closed now, no new namespaces can be added
+			// lock this level - the start tag is closed now, no new namespaces can be added
 			mNamespaceRegistry.lock(getDepth());
 			mOut.write('>');
 			state = STATE_START_TAG_CLOSED;

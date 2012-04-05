@@ -25,29 +25,29 @@ import java.io.IOException;
 
 
 /**
- * Adapter class for {@link XmlTagSerializableAdapter} instances.
+ * Adapter class for {@link XmlElementSerializableAdapter} instances.
  * 
  * @author Marten Gajda <marten@dmfs.org>
  */
-public final class XmlTagSerializableAdapter extends XmlTag
+public final class XmlElementSerializableAdapter extends XmlElement
 {
 
 	/**
-	 * Constructor that gets the tag's namespace and name from an {@link IXmlTagSerializable}.
+	 * Constructor that gets the element's namespace and name from an {@link IXmlElementSerializable}.
 	 * 
 	 * It also fetches attributes and children from the adapted instance if any.
 	 * 
 	 * @param serializable
-	 *            An {@link IXmlTagSerializable} instance.
+	 *            An {@link IXmlElementSerializable} instance.
 	 * @throws InvalidValueException
 	 * @throws InvalidStateException
 	 * @throws IOException
 	 */
-	XmlTagSerializableAdapter(IXmlTagSerializable serializable) throws IOException, InvalidStateException, InvalidValueException
+	XmlElementSerializableAdapter(IXmlElementSerializable serializable) throws IOException, InvalidStateException, InvalidValueException
 	{
-		super(serializable.getXmlNamespace(), serializable.getXmlTagName());
+		super(serializable.getXmlNamespace(), serializable.getXmlElementName());
 
 		// get attributes and children
-		serializable.populateXmlTag(this);
+		serializable.populateXmlElement(this);
 	}
 }

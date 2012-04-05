@@ -26,7 +26,7 @@ import java.io.Writer;
 
 
 /**
- * Class that represents an attribute of an XML tag.
+ * Class that represents an attribute of an XML element.
  * 
  * Instances of this class are immutable.
  * <p>
@@ -105,7 +105,7 @@ public class XmlAttribute
 	/**
 	 * Set the {@link XmlNamespaceRegistry} and register namespace.
 	 * 
-	 * Attributes do not store the namespace registry, they just use it to get an {@link XmlNamespace} for their namespace.
+	 * Attributes do not store the namespace registry, they just use it to get an {@link XmlNamespace} instance for their namespace.
 	 * 
 	 * @param namespaceRegistry
 	 *            The {@link XmlNamespaceRegistry} of this XML.

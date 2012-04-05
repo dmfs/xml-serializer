@@ -22,7 +22,7 @@
 package org.dmfs.xmlserializer;
 
 /**
- * Exception that indicates that an XML element could not be written because the respective tag was in an invalid state for this operation.
+ * Exception that indicates that an XML element could not be written because it was in an invalid state for this operation.
  * 
  * @author Marten Gajda <marten@dmfs.org>
  */

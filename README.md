@@ -22,13 +22,13 @@ This is a common use case that shows how to add nodes on the fly and also insert
 		s = new XmlSerializer(sw);
 
 		// create root node
-		XmlTag root = new XmlTag("Library");
+		XmlElement root = new XmlElement("Library");
 		// start serializer
 		s.serialize(root);
 		// add more tags
-		root.add(new XmlTag("Shelf").add(new XmlTag("Book").add(new XmlAttribute("title", "Title1"))));
-		root.add(new XmlTag("Shelf").add(new XmlTag("Book").add(new XmlAttribute("title", "Title2"))));
-		root.add(new XmlTag("Shelf").add(new XmlTag("Book").add(new XmlAttribute("title", "Title3"))));
+		root.add(new XmlElement("Shelf").add(new XmlElement("Book").add(new XmlAttribute("title", "Title1"))));
+		root.add(new XmlElement("Shelf").add(new XmlElement("Book").add(new XmlAttribute("title", "Title2"))));
+		root.add(new XmlElement("Shelf").add(new XmlElement("Book").add(new XmlAttribute("title", "Title3"))));
 		// finish serializer
 		s.close();
 		// get the result
@@ -49,7 +49,7 @@ the result will be equivalent to
 			</Shelf>
 		</Library>
 
-just without the new lines and indentation (i.e. all tags will be written to one long line).
+just without the new lines and indentation (i.e. all elements will be written to one long line).
 
 You can use namespaces of course (just default namespaces are not supported, i.e. all namespaces will be prefixed):
 
@@ -59,13 +59,13 @@ You can use namespaces of course (just default namespaces are not supported, i.e
 		s = new XmlSerializer(sw);
 
 		// create root node
-		XmlTag root = new XmlTag("XmlLibrary", "Library");
+		XmlElement root = new XmlElement("XmlLibrary", "Library");
 		// start serializer
 		s.serialize(root);
 		// add more tags
-		root.add(new XmlTag("XmlLibrary", "Shelf").add(new XmlTag("XmlLibrary", "Book").add(new XmlAttribute("title", "Title1"))));
-		root.add(new XmlTag("XmlLibrary", "Shelf").add(new XmlTag("XmlLibrary", "Book").add(new XmlAttribute("title", "Title2"))));
-		root.add(new XmlTag("XmlLibrary", "Shelf").add(new XmlTag("XmlLibrary", "Book").add(new XmlAttribute("title", "Title3"))));
+		root.add(new XmlElement("XmlLibrary", "Shelf").add(new XmlElement("XmlLibrary", "Book").add(new XmlAttribute("title", "Title1"))));
+		root.add(new XmlElement("XmlLibrary", "Shelf").add(new XmlElement("XmlLibrary", "Book").add(new XmlAttribute("title", "Title2"))));
+		root.add(new XmlElement("XmlLibrary", "Shelf").add(new XmlElement("XmlLibrary", "Book").add(new XmlAttribute("title", "Title3"))));
 		// finish serializer
 		s.close();
 		// get the result
@@ -88,9 +88,9 @@ the result will be equivalent to
 
 ### Sub-classing
 
-You can sub-class the XmlTag class for even more convenient XML building (this example also shows the method `addAttribute(String, String)`, a short-cut for `add(new XmlAttribute(String, String))`:
+You can sub-class the XmlElement class for even more convenient XML building (this example also shows the method `addAttribute(String, String)`, a short-cut for `add(new XmlAttribute(String, String))`:
 
-		public class Shelf extends XmlTag
+		public class Shelf extends XmlElement
 		{
 			public Shelf()
 			{
@@ -98,7 +98,7 @@ You can sub-class the XmlTag class for even more convenient XML building (this e
 			}
 		}
 
-		public class Book extends XmlTag
+		public class Book extends XmlElement
 		{
 			public Book(String title)
 			{
@@ -115,7 +115,7 @@ You can sub-class the XmlTag class for even more convenient XML building (this e
 		s = new XmlSerializer(sw);
 
 		// create root node
-		XmlTag root = new XmlTag("XmlLibrary", "Library");
+		XmlElement root = new XmlElement("XmlLibrary", "Library");
 		// start serializer
 		s.serialize(root);
 		// add more tags
@@ -129,11 +129,11 @@ You can sub-class the XmlTag class for even more convenient XML building (this e
 
 The result is the same as above. Of course, you can create a class for `Library` as well.
 
-### XmlSerializable - interface
+### XmlElementSerializable - interface
 
-Often it's not possible to subclass `XmlTag` (since Java does not support multiple inheritance). In those cases you can use an interface for XML serialization:
+Often it's not possible to subclass `XmlElement` (since Java does not support multiple inheritance). In those cases you can use an interface for XML serialization:
 
-		public class Book extends SomeAbstractBook implements IXmlTagSerializable
+		public class Book extends SomeAbstractBook implements IXmlElementSerializable
 		{
 			private String mTitle;	// the title attribute
 
@@ -147,18 +147,18 @@ Often it's not possible to subclass `XmlTag` (since Java does not support multip
 				return "XmlLibrary";
 			} 
 
-			public String getXmlTagName()
+			public String getXmlElementName()
 			{
 				return "Book";
 			}
 
-			public void populateXmlTag(XmlTag adapter)
+			public void populateXmlElement(XmlElement adapter)
 			{
 				adapter.addAttribute("title", mTitle);
 			}
 		}
 
-		public class Shelf extends SomeAbstractShelf implements IXmlTagSerializable
+		public class Shelf extends SomeAbstractShelf implements IXmlElementSerializable
 		{
 			private List<Book> mBookList = new ArrayList<Book>();
 
@@ -167,12 +167,12 @@ Often it's not possible to subclass `XmlTag` (since Java does not support multip
 				return "XmlLibrary";
 			} 
 
-			public String getXmlTagName()
+			public String getXmlElementName()
 			{
 				return "Shelf";
 			}
 
-			public void populateXmlTag(XmlTag adapter)
+			public void populateXmlElement(XmlElement adapter)
 			{
 				for (Book book:mBookList)
 				{
@@ -198,7 +198,7 @@ Often it's not possible to subclass `XmlTag` (since Java does not support multip
 		s = new XmlSerializer(sw);
 
 		// create root node
-		XmlTag root = new XmlTag("XmlLibrary", "Library");
+		XmlElement root = new XmlElement("XmlLibrary", "Library");
 		// start serializer
 		s.serialize(root);
 		// add more tags
@@ -227,14 +227,14 @@ Consider the following code:
 		s = new XmlSerializer(sw);
 
 		// create root node
-		XmlTag root = new XmlTag("XmlLibrary", "Library");
+		XmlElement root = new XmlElement("XmlLibrary", "Library");
 		// start serializer
 		s.serialize(root);
 		// add more tags
-		XmlTag shelf = new XmlTag("XmlLibrary", "Shelf");
+		XmlElement shelf = new XmlElement("XmlLibrary", "Shelf");
 		root.add(shelf);
 
-		shelf.add(new XmlTag("XmlBook", "Book").add(new XmlAttribute("title", "Title1")));
+		shelf.add(new XmlElement("XmlBook", "Book").add(new XmlAttribute("title", "Title1")));
 
 		// finish serializer
 		s.close();
@@ -264,14 +264,14 @@ To ensure `XmlBook` is defined in `Library` you can register the namespace early
 		s.registerNamespace("XmlBook");
 
 		// create root node
-		XmlTag root = new XmlTag("XmlLibrary", "Library");
+		XmlElement root = new XmlElement("XmlLibrary", "Library");
 		// start serializer
 		s.serialize(root);
 		// add more tags
-		XmlTag shelf = new XmlTag("XmlLibrary", "Shelf");
+		XmlElement shelf = new XmlElement("XmlLibrary", "Shelf");
 		root.add(shelf);
 
-		shelf.add(new XmlTag("XmlBook", "Book").add(new XmlAttribute("title", "Title1")));
+		shelf.add(new XmlElement("XmlBook", "Book").add(new XmlAttribute("title", "Title1")));
 
 		// finish serializer
 		s.close();
@@ -295,11 +295,11 @@ Alternatively you can insert the shelf at once (like in the second example and w
 		s = new XmlSerializer(sw);
 
 		// create root node
-		XmlTag root = new XmlTag("XmlLibrary", "Library");
+		XmlElement root = new XmlElement("XmlLibrary", "Library");
 		// start serializer
 		s.serialize(root);
 		// add more tags
-		root.add(new XmlTag("XmlLibrary", "Shelf").add(new XmlTag("XmlBook", "Book").add(new XmlAttribute("title", "Title1"))));
+		root.add(new XmlElement("XmlLibrary", "Shelf").add(new XmlElement("XmlBook", "Book").add(new XmlAttribute("title", "Title1"))));
 		// finish serializer
 		s.close();
 		// get the result
@@ -311,7 +311,6 @@ The result will be the same as above (since the root start tag is still open whe
 
 * Check tag and attribute name validity
 * Support CDATA
-* Add Comment support
 * Support more recent XML versions properly
 * Write missing test cases, improve the existing tests
 

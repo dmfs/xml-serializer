@@ -33,25 +33,25 @@ public class XmlCommentTest
 	{
 		StringWriter sw = new StringWriter();
 		XmlSerializer s = new XmlSerializer(sw);
-		s.serialize(new XmlTag("ns", "root").add(new XmlComment("hello\n")));
+		s.serialize(new XmlElement("ns", "root").add(new XmlComment("hello\n")));
 		s.close();
 		assertXmlEquals(XML + "<A:root xmlns:A=\"ns\"><!--hello\n--></A:root>", sw.toString());
 
 		sw = new StringWriter();
 		s = new XmlSerializer(sw);
-		s.serialize(new XmlTag("ns", "root").add(new XmlComment("")));
+		s.serialize(new XmlElement("ns", "root").add(new XmlComment("")));
 		s.close();
 		assertXmlEquals(XML + "<A:root xmlns:A=\"ns\"><!----></A:root>", sw.toString());
 
 		sw = new StringWriter();
 		s = new XmlSerializer(sw);
-		s.serialize(new XmlTag("ns", "root").add(new XmlComment(null)));
+		s.serialize(new XmlElement("ns", "root").add(new XmlComment(null)));
 		s.close();
 		assertXmlEquals(XML + "<A:root xmlns:A=\"ns\"><!----></A:root>", sw.toString());
 
 		sw = new StringWriter();
 		s = new XmlSerializer(sw);
-		s.serialize(new XmlTag("ns", "root").add(new XmlComment()));
+		s.serialize(new XmlElement("ns", "root").add(new XmlComment()));
 		s.close();
 		assertXmlEquals(XML + "<A:root xmlns:A=\"ns\"><!----></A:root>", sw.toString());
 	}
@@ -60,7 +60,7 @@ public class XmlCommentTest
 	@Test(expected = InvalidValueException.class)
 	public void testConstructorException() throws InvalidStateException, IOException, InvalidValueException, ParserConfigurationException, SAXException
 	{
-		s.serialize(new XmlTag("ns", "root").add(new XmlComment("he--llo\n")));
+		s.serialize(new XmlElement("ns", "root").add(new XmlComment("he--llo\n")));
 		s.close();
 	}
 
@@ -70,37 +70,37 @@ public class XmlCommentTest
 	{
 		StringWriter sw = new StringWriter();
 		XmlSerializer s = new XmlSerializer(sw);
-		s.serialize(new XmlTag("ns", "root").add(new XmlComment("hello\n").add("some comment")));
+		s.serialize(new XmlElement("ns", "root").add(new XmlComment("hello\n").add("some comment")));
 		s.close();
 		assertXmlEquals(XML + "<A:root xmlns:A=\"ns\"><!--hello\nsome comment--></A:root>", sw.toString());
 
 		sw = new StringWriter();
 		s = new XmlSerializer(sw);
-		s.serialize(new XmlTag("ns", "root").add(new XmlComment("").add("some comment")));
+		s.serialize(new XmlElement("ns", "root").add(new XmlComment("").add("some comment")));
 		s.close();
 		assertXmlEquals(XML + "<A:root xmlns:A=\"ns\"><!--some comment--></A:root>", sw.toString());
 
 		sw = new StringWriter();
 		s = new XmlSerializer(sw);
-		s.serialize(new XmlTag("ns", "root").add(new XmlComment(null).add("some comment")));
+		s.serialize(new XmlElement("ns", "root").add(new XmlComment(null).add("some comment")));
 		s.close();
 		assertXmlEquals(XML + "<A:root xmlns:A=\"ns\"><!--some comment--></A:root>", sw.toString());
 
 		sw = new StringWriter();
 		s = new XmlSerializer(sw);
-		s.serialize(new XmlTag("ns", "root").add(new XmlComment().add("some comment")));
+		s.serialize(new XmlElement("ns", "root").add(new XmlComment().add("some comment")));
 		s.close();
 		assertXmlEquals(XML + "<A:root xmlns:A=\"ns\"><!--some comment--></A:root>", sw.toString());
 
 		sw = new StringWriter();
 		s = new XmlSerializer(sw);
-		s.serialize(new XmlTag("ns", "root").add(new XmlComment().add("some comment\n").add("some other comment")));
+		s.serialize(new XmlElement("ns", "root").add(new XmlComment().add("some comment\n").add("some other comment")));
 		s.close();
 		assertXmlEquals(XML + "<A:root xmlns:A=\"ns\"><!--some comment\nsome other comment--></A:root>", sw.toString());
 
 		sw = new StringWriter();
 		s = new XmlSerializer(sw);
-		XmlTag root = new XmlTag("ns", "root");
+		XmlElement root = new XmlElement("ns", "root");
 		XmlComment comment = new XmlComment();
 		s.serialize(root);
 		root.add(comment);
@@ -115,7 +115,7 @@ public class XmlCommentTest
 	@Test(expected = InvalidValueException.class)
 	public void testAddInvalid() throws InvalidStateException, IOException, InvalidValueException, ParserConfigurationException, SAXException
 	{
-		s.serialize(new XmlTag("ns", "root").add(new XmlComment("hello\n").add("some -- comment")));
+		s.serialize(new XmlElement("ns", "root").add(new XmlComment("hello\n").add("some -- comment")));
 		s.close();
 	}
 }

@@ -42,7 +42,7 @@ public final class XmlSerializer
 	/**
 	 * The XML root node.
 	 */
-	private XmlTag mRootNode;
+	private XmlElement mRootNode;
 
 	/**
 	 * The {@link Writer} we write to.
@@ -76,7 +76,7 @@ public final class XmlSerializer
 	 * @throws InvalidStateException
 	 * @throws InvalidValueException
 	 */
-	public void serialize(XmlTag rootNode) throws IOException, InvalidStateException, InvalidValueException
+	public void serialize(XmlElement rootNode) throws IOException, InvalidStateException, InvalidValueException
 	{
 		mOut.write(XML_PREFIX);
 		rootNode.setNamespaceRegistry(mNamespaceRegistry);
@@ -86,7 +86,7 @@ public final class XmlSerializer
 
 
 	/**
-	 * Start the serializer with an {@link IXmlTagSerializable} as root node.
+	 * Start the serializer with an {@link IXmlElementSerializable} as root node.
 	 * 
 	 * @param root
 	 *            The root node.
@@ -94,14 +94,14 @@ public final class XmlSerializer
 	 * @throws InvalidStateException
 	 * @throws InvalidValueException
 	 */
-	public void serialize(IXmlTagSerializable root) throws IOException, InvalidStateException, InvalidValueException
+	public void serialize(IXmlElementSerializable root) throws IOException, InvalidStateException, InvalidValueException
 	{
-		serialize(new XmlTagSerializableAdapter(root));
+		serialize(new XmlElementSerializableAdapter(root));
 	}
 
 
 	/**
-	 * Finish serialization, closing all open tags.
+	 * Finish serialization, closing all open elements.
 	 * 
 	 * @throws InvalidStateException
 	 * @throws IOException

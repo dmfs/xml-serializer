@@ -29,7 +29,7 @@ public class XmlTextSerializableAdapterTest
 
 
 	/**
-	 * Test insertion of an instance implementing IXmlTagSerializable.
+	 * Test insertion of an instance implementing IXmlElementSerializable.
 	 * 
 	 * @throws InvalidStateException
 	 * @throws IOException
@@ -38,9 +38,9 @@ public class XmlTextSerializableAdapterTest
 	 * @throws SAXException
 	 */
 	@Test
-	public void testIXmlTagSerializable() throws InvalidStateException, IOException, InvalidValueException, ParserConfigurationException, SAXException
+	public void testIXmlElementSerializable() throws InvalidStateException, IOException, InvalidValueException, ParserConfigurationException, SAXException
 	{
-		s.serialize(new XmlTag("ns", "root").add(new IXmlTextSerializable()
+		s.serialize(new XmlElement("ns", "root").add(new IXmlTextSerializable()
 		{
 
 			public void populateXmlText(XmlText adapter) throws IOException, InvalidStateException

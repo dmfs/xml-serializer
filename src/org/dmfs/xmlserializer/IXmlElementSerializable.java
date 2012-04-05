@@ -25,32 +25,32 @@ import java.io.IOException;
 
 
 /**
- * Interface for classes that serialize to an XML tag.
+ * Interface for classes that serialize to an XML element.
  * 
  * @author Marten Gajda <marten@dmfs.org>
  */
-public interface IXmlTagSerializable
+public interface IXmlElementSerializable
 {
 	/**
-	 * Get the tag's namespace.
+	 * Get the element's namespace.
 	 * 
-	 * @return A {@link String} containing the namespace or {@code null} if the tag has no namespace.
+	 * @return A {@link String} containing the namespace or {@code null} if the element has no namespace.
 	 */
 	public String getXmlNamespace();
 
 
 	/**
-	 * Get the tag's name.
+	 * Get the element's name.
 	 * 
 	 * @return A {@link String} containing the name. Must not be {@code null}!
 	 */
-	public String getXmlTagName();
+	public String getXmlElementName();
 
 
 	/**
-	 * Populate the tag with attributes and children.
+	 * Populate the element with attributes and children.
 	 * <p>
-	 * If this tag has any attributes or children add them to {@code adapter}.
+	 * If this element has any attributes or children add them to {@code adapter}.
 	 * </p>
 	 * 
 	 * @param adapter
@@ -59,5 +59,5 @@ public interface IXmlTagSerializable
 	 * @throws InvalidStateException
 	 * @throws InvalidValueException
 	 */
-	public void populateXmlTag(XmlTag adapter) throws IOException, InvalidStateException, InvalidValueException;
+	public void populateXmlElement(XmlElement adapter) throws IOException, InvalidStateException, InvalidValueException;
 }

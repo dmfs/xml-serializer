@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.xml.sax.SAXException;
 
 
-public class XmlTagSerializableAdapterTest
+public class XmlElementSerializableAdapterTest
 {
 	private final static String XML = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
 
@@ -29,7 +29,7 @@ public class XmlTagSerializableAdapterTest
 
 
 	/**
-	 * Test insertion of an instance implementing IXmlTagSerializable.
+	 * Test insertion of an instance implementing IXmlElementSerializable.
 	 * 
 	 * @throws InvalidStateException
 	 * @throws IOException
@@ -40,7 +40,7 @@ public class XmlTagSerializableAdapterTest
 	@Test
 	public void testIXmlTagSerializable() throws InvalidStateException, IOException, InvalidValueException, ParserConfigurationException, SAXException
 	{
-		s.serialize(new XmlTag("ns", "root").add(new IXmlTagSerializable()
+		s.serialize(new XmlElement("ns", "root").add(new IXmlElementSerializable()
 		{
 
 			public String getXmlNamespace()
@@ -49,13 +49,13 @@ public class XmlTagSerializableAdapterTest
 			}
 
 
-			public String getXmlTagName()
+			public String getXmlElementName()
 			{
 				return "TAGNAME";
 			}
 
 
-			public void populateXmlTag(XmlTag adapter) throws IOException, InvalidStateException, InvalidValueException
+			public void populateXmlElement(XmlElement adapter) throws IOException, InvalidStateException, InvalidValueException
 			{
 				// do nothing
 			}
@@ -65,7 +65,7 @@ public class XmlTagSerializableAdapterTest
 		assertXmlEquals(XML + "<A:root xmlns:A=\"ns\" xmlns:B=\"XNamespaceX\"><B:TAGNAME /></A:root>", sw.toString());
 	}
 
-	private class TestIXmlSerializableAttributeClass extends Object implements IXmlTagSerializable
+	private class TestIXmlSerializableAttributeClass extends Object implements IXmlElementSerializable
 	{
 		public String getXmlNamespace()
 		{
@@ -73,13 +73,13 @@ public class XmlTagSerializableAdapterTest
 		}
 
 
-		public String getXmlTagName()
+		public String getXmlElementName()
 		{
 			return "TAGNAME";
 		}
 
 
-		public void populateXmlTag(XmlTag adapter) throws IOException, InvalidStateException, InvalidValueException
+		public void populateXmlElement(XmlElement adapter) throws IOException, InvalidStateException, InvalidValueException
 		{
 			// add some attributes
 			adapter.addAttribute("testnamex", "testvalue1");
@@ -89,7 +89,7 @@ public class XmlTagSerializableAdapterTest
 
 
 	/**
-	 * Test insertion of an instance implementing IXmlTagSerializable and IXmlAttributedSerializable.
+	 * Test insertion of an instance implementing IXmlElementSerializable and IXmlAttributedSerializable.
 	 * 
 	 * @throws InvalidStateException
 	 * @throws IOException
@@ -101,14 +101,14 @@ public class XmlTagSerializableAdapterTest
 	public void testIXmlTagSerializableAttributes() throws InvalidStateException, IOException, InvalidValueException, ParserConfigurationException,
 		SAXException
 	{
-		s.serialize(new XmlTag("ns", "root").add(new TestIXmlSerializableAttributeClass()));
+		s.serialize(new XmlElement("ns", "root").add(new TestIXmlSerializableAttributeClass()));
 		s.close();
 		assertXmlEquals(XML
 			+ "<A:root xmlns:A=\"ns\" xmlns:B=\"XNamespaceX\" xmlns:C=\"testns2\"><B:TAGNAME testnamex=\"testvalue1\" C:testnamey=\"testvalue2\"/></A:root>",
 			sw.toString());
 	}
 
-	private class TestIXmlSerializableChildrenClass extends Object implements IXmlTagSerializable
+	private class TestIXmlSerializableChildrenClass extends Object implements IXmlElementSerializable
 	{
 		public String getXmlNamespace()
 		{
@@ -116,23 +116,23 @@ public class XmlTagSerializableAdapterTest
 		}
 
 
-		public String getXmlTagName()
+		public String getXmlElementName()
 		{
 			return "TAGNAME";
 		}
 
 
-		public void populateXmlTag(XmlTag adapter) throws IOException, InvalidStateException, InvalidValueException
+		public void populateXmlElement(XmlElement adapter) throws IOException, InvalidStateException, InvalidValueException
 		{
 			// add some child nodes
-			adapter.add(new XmlTag("testns3", "testtag"));
+			adapter.add(new XmlElement("testns3", "testtag"));
 			adapter.addText("TextVALUE");
 		}
 	}
 
 
 	/**
-	 * Test insertion of an instance implementing IXmlTagSerializable and IXmlChildrenSerializable.
+	 * Test insertion of an instance implementing IXmlElementSerializable and IXmlChildrenSerializable.
 	 * 
 	 * @throws InvalidStateException
 	 * @throws IOException
@@ -143,7 +143,7 @@ public class XmlTagSerializableAdapterTest
 	@Test
 	public void testIXmlSerializableChildren() throws InvalidStateException, IOException, InvalidValueException, ParserConfigurationException, SAXException
 	{
-		s.serialize(new XmlTag("ns", "root").add(new TestIXmlSerializableChildrenClass()));
+		s.serialize(new XmlElement("ns", "root").add(new TestIXmlSerializableChildrenClass()));
 		s.close();
 		assertXmlEquals(XML + "<A:root xmlns:A=\"ns\" xmlns:B=\"XNamespaceX\" xmlns:C=\"testns3\"><B:TAGNAME><C:testtag/>TextVALUE</B:TAGNAME></A:root>",
 			sw.toString());
