@@ -47,12 +47,12 @@ public class XmlAttribute
 	 * An {@link XmlNamespace} instance representing the namespace or {@code null} if this attribute has no namespace or {@link setNamespaceRegistry} has not
 	 * been called yet.
 	 */
-	public XmlNamespace mNamespace;
+	private XmlNamespace mNamespace;
 
 	/**
 	 * A flag indicating whether this attribute has a namespace.
 	 */
-	public final boolean mHasNamespace;
+	private final boolean mHasNamespace;
 
 	/**
 	 * A {@link String} containing the name of this attribute.

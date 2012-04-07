@@ -82,7 +82,7 @@ public class XmlElement extends XmlAbstractNode
 	/**
 	 * The {@link XmlNamespaceRegistry} of this XML document.
 	 */
-	XmlNamespaceRegistry mNamespaceRegistry;
+	private XmlNamespaceRegistry mNamespaceRegistry;
 
 
 	/**
