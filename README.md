@@ -1,5 +1,7 @@
 # xml-serializer
 
+***This Project is deprecated in favor of [xmlobjects](https://github.com/dmfs/xmlobjects)***
+
 __A lightweight & convenient XML serializer__
 
 This is the XML serializer used by CalDAV-Sync & CardDAV-Sync for Android. It aims to be more convenient than the stock Android XmlSerializer interface, still being somewhat lightweight and efficient.
